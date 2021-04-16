@@ -10,8 +10,13 @@ const scores = document.getElementById("scores_number");
 const gameOver_block = document.querySelector(".game_over_block");
 const gameOver_text = document.querySelector(".game_over_text");
 const restart_button = gameOver_block.querySelector(".restart_btn");
+const pause_block = document.querySelector(".pause_block");
 
 
+
+const rules_btn = document.querySelector(".rules-btn");
+const ok_btn = document.querySelector(".ok-btn");
+const rules_container = document.querySelector(".rules-container");
 
 // Settings
 var default_speed = 250;
@@ -74,7 +79,9 @@ var is_over = false;
 let prev_posX, prev_posY;
 let actual_posX, actual_posY;
 
-function Move(someFunction){    
+function Move(someFunction){
+    pause_block.classList.remove("go-block_visible");
+
     move = setInterval(() => {
         someFunction();
         if(is_over) return;
@@ -241,7 +248,10 @@ document.addEventListener('keydown', function(event) {
         else if (event.code == 'ArrowDown' ) moveDown();
         else if (event.code == 'ArrowRight' ) moveRight();
         else if (event.code == 'ArrowLeft' ) moveLeft();
-        else if (event.code == 'Space') stopMoving();    
+        else if (event.code == 'Space') {
+            stopMoving();   
+            pause_block.classList.add("go-block_visible");
+        } 
     }
 });
 
@@ -326,20 +336,21 @@ function gameOver(){
     is_over = true;
     clearInterval(move);
 
-    var end_animation = setInterval(() => {
-        square.style.opacity = "0.1";
-        setTimeout(() => {
-            square.style.opacity = "1";
-       }, 100);
-    }, 200);    
+    // var end_animation = setInterval(() => {
+    //     square.style.opacity = "0.1";
+    //     setTimeout(() => {
+    //         square.style.opacity = "1";
+    //    }, 100);
+    // }, 200);    
     
-    setTimeout(() => {
-        clearInterval(end_animation);
-    }, 1000);
+    // setTimeout(() => {
+    //     clearInterval(end_animation);
+    // }, 1000);
 
-    gameOver_block.classList.add("go-block_visible")
-    restart_button.classList.add("go-btn_visible")
-    gameOver_text .classList.add("go-text_visible")
+    square.classList.add("q-game_over");
+    gameOver_block.classList.add("go-block_visible");
+    gameOver_text .classList.add("go-text_visible");
+    restart_button.classList.add("go-text_visible");
 }
 
 restart_button.onclick = newGame; 
@@ -348,6 +359,7 @@ function newGame(){
     is_over = false;
     stopMoving();
 
+    square_tail = field.querySelectorAll('.q-tail');
     if(square_tail.length > 0){
         square_tail.forEach(element => {
             element.parentNode.removeChild(element);
@@ -357,9 +369,11 @@ function newGame(){
     gameOver_block.classList.remove("go-block_visible");
     restart_button.classList.remove("go-btn_visible");
     gameOver_text.classList.remove("go-text_visible");
-    
-    scores.innerHTML = "0";
+    square.classList.remove("q-game_over");
+    restart_button.classList.remove("go-text_visible");
+
     scores_number = 0;
+    scores.innerHTML = scores_number;
 
     posx = Math.floor(ONE_EXIS_SECTION_NUMBER / 2 * SQUARE_SIDE);
     posy = posx;
@@ -370,6 +384,16 @@ function newGame(){
 
     spawnFood();
 };
+
+
+rules_btn.addEventListener("click", () => {
+    rules_container.classList.remove("rc-hidden");
+})
+
+ok_btn.addEventListener("click", () => {
+    rules_container.classList.add("rc-hidden");
+})
+
 
 //        ======= GAME SCRIPT =======
 

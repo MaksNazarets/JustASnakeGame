@@ -10,7 +10,11 @@
 
     <body>
         <div id="game">
-            <h1 class="title">MY SNAKE GAME :)</h1>
+            <div class="top">
+                <!-- <div></div> -->
+                <h1 class="title">JUST A SNAKE GAME :)</h1>
+                <a class="rules-btn">Керування</a>
+            </div>
             <div id="back">
                 <div id="q" >
                 </div>
@@ -19,12 +23,24 @@
                 </div>
                 
                 <div class="game_over_block">
-                    <h1 class="game_over_text">GAME OVER</h1>
-                    <a class='restart_btn'>RESTART</a>
+                    <h1 class="game_over_text">Ви програли</h1>
+                    <a class='restart_btn'>ПОЧАТИ ЗАНОВО</a>
+                </div>
+                <div class="pause_block">
+                    <h1>Пауза</h1>
+                    <p>Щоб продовжити гру, знову почніть рух змійки</p>
                 </div>
             </div>
             <div class="interface">
-                <h1 class="scores">Scores: <span id = "scores_number">0</span></h1>
+                <h1 class="scores">Очки: <span id = "scores_number">0</span></h1>
+            </div>
+            <div class="rules-container rc-hidden">
+                <h2>Інструкція по керуванню грою</h2>  
+                <p>Щоб направляти змійку використовуйте клавіші</p>
+                <p><span>&larr;</span>, <span>&uarr;</span>, <span>&rarr;</span> та <span>&darr;</span></p>
+                <p>Щоб поставити гру на паузу натисніть</p>
+                <p><span>ПРОБІЛ</span></p>
+                <a class="ok-btn">OK</a>
             </div>
         </div>
 
