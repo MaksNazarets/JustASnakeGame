@@ -9,12 +9,12 @@ const scores = document.getElementById("scores_number");
 
 const gameOver_block = document.querySelector(".game_over_block");
 const gameOver_text = document.querySelector(".game_over_text");
-const restart_button = gameOver_block.getElementsByTagName("button")[0];
+const restart_button = gameOver_block.querySelector(".restart_btn");
 
 
 
 // Settings
-var default_speed = 300;
+var default_speed = 250;
 var speed;
 var posx, posy;
 
@@ -77,6 +77,7 @@ let actual_posX, actual_posY;
 function Move(someFunction){    
     move = setInterval(() => {
         someFunction();
+        if(is_over) return;
 
         if(square_tail.length > 0){
             for (let i = 0; i < square_tail.length; i++){      
@@ -132,8 +133,9 @@ function moveRight(){
 
         posx += ONE_STEP_SIZE;
 
-        if(posx >= FIELD_SIDE - SQUARE_SIDE){ 
+        if(posx >= FIELD_SIDE){ 
             if(!is_over) gameOver();
+            return;
         }
 
         square.style.left = posx + "px";
@@ -160,8 +162,9 @@ function moveLeft(){
         prev_posY = posy + 'px';
 
         posx -= ONE_STEP_SIZE;
-        if(posx <= 0){
+        if(posx < 0){
             if(!is_over) gameOver();
+            return;
         }
 
         square.style.left = posx + "px";
@@ -187,8 +190,9 @@ function moveUp(){
         prev_posY = posy + 'px';
 
         posy -= ONE_STEP_SIZE;
-        if(posy == 0){ 
+        if(posy < 0){ 
             if(!is_over) gameOver();
+            return;
         }
 
         square.style.top = posy + "px";
@@ -216,8 +220,9 @@ function moveDown(){
         prev_posY = posy + 'px';
         
         posy += ONE_STEP_SIZE;
-        if(posy >= FIELD_SIDE - SQUARE_SIDE){ 
+        if(posy >= FIELD_SIDE){ 
             if(!is_over) gameOver();
+            return;
         }
 
         square.style.top = posy + "px";
@@ -261,6 +266,11 @@ function spawnFood(){
     while(is_on_snake){
         foodX = getRandomInt(1, 19);
         foodY = getRandomInt(1, 19);
+        is_on_snake = false;
+        square_tail.forEach(element => {
+            if(getComputedStyle(element).left == foodX &&
+            getComputedStyle(element).top == foodY) is_on_snake = true
+        });
     }
 
     food.style.left = foodX + 'px';

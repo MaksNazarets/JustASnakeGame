@@ -1,7 +1,13 @@
+@font-face {
+    font-family: 'Carter One';
+    src: url('fonts/Carter_One/CarterOne-Regular.ttf')  format('truetype');
+  }
+
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Carter One';
 }
 
 html{
@@ -23,28 +29,72 @@ body{
 #back {
     background: rgb(236, 236, 236);
     position: relative;
-    width: 80vmin; /* Changing in js */
+    width: 82vmin;      /* Changing in js */
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.75) inset;
 }
 
 #q, .q-tail {
     position: absolute;
-    width: 5%; /* Changing in js */
-    height: 5%; /* Changing in js */
+    width: 5%;          /* Changing in js */
+    height: 5%;         /* Changing in js */
     background: rgb(0, 0, 0);
-    /* border: solid 1px rgba(200, 200, 200, 0.75); */
-    box-shadow: 0 0 1px rgb(7, 7, 7) ;
+    box-shadow: 0 0 5px -3px  rgb(7, 7, 7) ;
     /* transition: opacity 0.1s, top 50ms, left 50ms; */
     z-index: 5;
 }
 
 #food{
     position: absolute;
-    width: 5%; /* Changing in js */
-    height: 5%; /* Changing in js */
-    background: rgb(47, 0, 255);
-    box-shadow: 0 0 1px rgb(7, 7, 7) ;
+    width: 5%;          /* Changing in js */
+    height: 5%;         /* Changing in js */
+    background: rgb(77, 77, 77);
+    box-shadow: 0 0 5px -3px  rgb(7, 7, 7);
+
+    /* animation: food-animation 10s ease-in infinite; */
 }
+
+@keyframes food-animation {
+    0%{
+        transform: scale(1);
+    }
+
+    45%{
+        transform: scale(1);
+        border-radius: 0%;
+        /* box-shadow: 0 0 5px -3px  rgb(0, 0, 0); */
+    }
+
+    47.5%{
+        transform: scale(1.2);
+        border-radius: 50%;
+        /* box-shadow: 0 0 15px -3px  rgb(0, 0, 0); */
+    }
+
+    50%{
+        transform: scale(1);
+        border-radius: 0%;
+        /* box-shadow: 0 0 5px -3px  rgb(0, 0, 0); */
+    }
+
+    95%{   
+        transform: scale(1);
+        border-radius: 0%;
+        /* box-shadow: 0 0 5px -3px  rgb(0, 0, 0); */
+    }
+
+    97.5%{
+        transform: scale(1.2);
+        border-radius: 50%;
+        /* box-shadow: 0 0 15px -3px  rgb(0, 0, 0); */
+    }
+
+    100%{
+        transform: scale(1);
+        border-radius: 0%;
+        /* box-shadow: 0 0 5px -3px  rgb(0, 0, 0); */
+}
+}
+
 
 
 .game_over_block{
@@ -56,9 +106,10 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 3vmin;
     z-index: -5;
-    /* background: rgba(0, 0, 0, 0.75); */
-    /* background: rgba(0, 0, 0, 0); */
+    background: rgba(0, 0, 0, 0);
+    transition: 0.3s;
 }
 
 
@@ -67,31 +118,35 @@ body{
     padding: 0 5px;
     color: rgb(0, 0, 0);
     background: rgba(255, 255, 255, 0.76);
-    box-shadow: 0 0 10px black;
+    box-shadow: 0 -5px 17px -5px rgb(0, 0, 0);
     border-radius: 15px;
-    font-family: serif;
     font-size: 95px;
     text-align: center;
-    text-shadow: white 1px 1px 0, white -1px -1px 0, 
-                white -1px 1px 0, white 1px -1px 0;
+   
     transform: scale(0.3);
     margin: 0;
     transition: transform 0.5s;
-    display: none;
+    /* display: none; */
 }
 
-.game_over_block button{
-    display: block;
-    font-size: 90px;
+.game_over_block .restart_btn{
+    font-size: 55px;
     box-shadow: 0 0 5px black;
-    border-radius: 10px;
-    transform: scale(0.3);
-    display: none;
+    padding: 5px 20px;
+    border-radius: 12px;
+    /* transform: scale(1); */
+    cursor: pointer;
+    background: rgb(54, 54, 54);
+    color: #fff;
+    box-shadow: 0 5px 17px -5px rgb(255, 255, 255);
+    transition: transform 0.5s, background 0.3s;
+    /* display: none; */
 }
 
-.game_over_block button:hover{
-    background: rgb(68, 68, 68);
-    color: white;
+.game_over_block .restart_btn:hover{
+    /* background: rgb(68, 68, 68); */
+    transform: scale(1.03);
+    /* color: rgb(255, 255, 255); */
 }
 
 .go-block_visible{
@@ -114,19 +169,17 @@ body{
 /*                   INTERFACE                    */
 
 .title{
-    margin: 21px 0 0 0;
+    margin: 1vmin 0 0 0;
     text-align: center;
     font-size: 5vmin;
     color: rgb(255, 255, 255);
-    font-family: Calibri;
 }
 
 .scores{
-    margin: 0 0 21px 0;
+    margin: 0 0 1vmin 0;
     text-align: center;
     font-size: 5vmin;
     color: rgb(255, 255, 255);
-    font-family: Calibri;
 }
 
 button:active{
