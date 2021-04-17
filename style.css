@@ -8,15 +8,26 @@
     src: url('fonts/Alegreya_Sans_SC/AlegreyaSansSC-Bold.ttf')  format('truetype');
 }
 
+:root{
+    --main-dark-color: rgb(33, 33, 33);
+    --second-dark-color: rgb(51, 51, 51);
+    --main-light-color: rgb(75, 75, 75);
+    --button-color: rgb(80, 80, 80);
+    --button-active-color: rgb(54, 54, 54);
+    --snake-color: #000;
+    --food-color: rgb(51, 51, 51);
+}
+
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Alegreya';
+    color: #fff;
 }
 
 html{
-    background: rgb(33, 33, 33);
+    background: var(--main-dark-color);
 }
 
 body{
@@ -39,13 +50,14 @@ body{
     background: rgb(236, 236, 236);
     width: 82vmin;      /* Changing in js */
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.75) inset, 0 10px 15px #000;
+    overflow: hidden;
 }
 
 #q, .q-tail {
     position: absolute;
     width: 5%;          /* Changing in js */
     height: 5%;         /* Changing in js */
-    background: rgb(0, 0, 0);
+    background: var(--snake-color);
     box-shadow: 0 0 5px -3px  rgb(7, 7, 7) ;
     /* transition: opacity 0.1s, top 50ms, left 50ms; */
     z-index: 5;
@@ -55,7 +67,7 @@ body{
     position: absolute;
     width: 5%;          /* Changing in js */
     height: 5%;         /* Changing in js */
-    background: rgb(77, 77, 77);
+    background: var(--food-color);
     box-shadow: 0 0 5px -3px  rgb(7, 7, 7);
 }
 
@@ -99,9 +111,10 @@ body{
     color: rgb(255, 255, 255);
     z-index: 10;
     position: relative;
+    text-shadow: 0 0 3vmin black;
 }
 
-
+/* ------------- */
 
 .game_over_block, .pause_block{
     position: absolute;
@@ -118,7 +131,6 @@ body{
 }
 
 
-
 .game_over_text{
     padding: 0 5px;
     color: rgb(0, 0, 0);
@@ -132,6 +144,7 @@ body{
     margin: 0;
     transition: transform 0.5s;
 }
+
 
 .pause_block h1{
     padding: 0 5px;
@@ -157,6 +170,9 @@ body{
     transition: transform 0.5s;
 }
 
+/* ---------- */
+
+
 #rules-btn, #settings-btn{
     display: block;
     position: absolute;
@@ -165,7 +181,7 @@ body{
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
-    background: rgb(80, 80, 80);
+    background: var(--button-color);
     font-size: 2vmin;
     padding: 0.3vmin 1vmin;
     border-radius: 0.7vmin;
@@ -193,7 +209,8 @@ body{
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
-    background: rgb(80, 80, 80);
+    background: var(--button-color);
+    box-shadow: 0 .1vmin 1vmin #000;
     font-size: 2.5vmin;
     padding: 0.3vmin 1vmin;
     border-radius: 0.7vmin;
@@ -206,19 +223,46 @@ body{
 }
 
 #rules-btn:active, #settings-btn:active, .records-btn:active{
-    background: rgb(54, 54, 54);
+    background: var(--button-active-color);
     transform: scale(1);
 }
+
+
+.restart_btn{
+    font-size: 5vmin;
+    padding: 5px 20px;
+    border-radius: 12px;
+    transform: scale(0.3);
+    cursor: pointer;
+    text-transform: uppercase;
+    background: var(--main-dark-color);
+    color: #fff;
+    box-shadow: 0 5px 17px -5px rgb(255, 255, 255);
+    transition: transform 0.5s, background 0.3s;
+}
+
+.restart_btn:hover{
+    transform: scale(1.03);
+}
+
+.restart_btn:active{
+    transition: 0.15s;
+    background: black;
+    transform: scale(1);
+}
+
+
+/* -------------- */
 
 
 .records-container{
     position: absolute;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    box-shadow: -.5vmin 0 .7vmin -.5vmin #000;
     bottom: 0;
     right: 0;
-    background: rgb(41, 41, 41);
+    background: var(--main-dark-color);
     width: 50%;
     height: 50vmin;
     padding: 5vmin;
@@ -252,52 +296,24 @@ body{
     line-height: 2;
 }
 
-.restart_btn{
-    font-size: 5vmin;
-    padding: 5px 20px;
-    border-radius: 12px;
-    transform: scale(0.3);
-    cursor: pointer;
-    text-transform: uppercase;
-    background: rgb(54, 54, 54);
-    color: #fff;
-    box-shadow: 0 5px 17px -5px rgb(255, 255, 255);
-    transition: transform 0.5s, background 0.3s;
-}
+/* --------- */
 
-.restart_btn:hover{
-    transform: scale(1.03);
-}
 
-.restart_btn:active{
-    transition: 0.15s;
-    background: rgb(36, 36, 36);
-    transform: scale(1);
-}
 
-.go-block_visible{
-    z-index: 100;
-    background:rgba(0, 0, 0, 0.75);
-}
-
-.go-text_visible{
-    display: block;
-    transform: scale(1);
-}
 
 .rules-container{
     position: absolute;
     top: 0;
     width: 100%;
-    max-height: 550px;
+    max-height: 65vmin;
     height: 100%;
     padding: 7%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgb(75, 75, 75);
-    box-shadow: inset 0 0 10px rgb(0, 0, 0),  0 5px 15px rgb(0, 0, 0);
+    background: var(--main-light-color);
+    box-shadow: inset 0 0 1vmin rgb(0, 0, 0),  0 5px 15px rgb(0, 0, 0);
     border-radius: 1vmin;
     z-index: 150;
     transition: transform ease-in 0.3s;
@@ -329,17 +345,17 @@ body{
 }
 
 .rules-container span{
-    background: rgb(59, 59, 59);
+    background: var(--second-dark-color);
     padding: 0.1vmin 1vmin;   
     line-height: 1; 
-    box-shadow: 0 0 0.5px rgb(156, 156, 156);
+    box-shadow: 0 0.2vmin 0.2vmin rgb(0, 0, 0);
     border-radius: 0.5vmin;
 }
 
 .ok-btn{
     text-transform: uppercase;
     cursor: pointer;
-    background: rgb(49, 49, 49);
+    background: var(--main-dark-color);
     font-size: 4vmin;
     line-height: 1;
     padding: 0.5vmin 3vmin;
@@ -354,6 +370,82 @@ body{
     transform: scale(1.03) translateY(7vmin);
 }
 
+.ok-btn:active{
+    transform: scale(1) translateY(7vmin);
+    background: #000;
+}
+
+
+.settings-menu{
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    /* width: 45%; */
+    background: var(--second-dark-color);
+    border-radius: 0 1vmin 1vmin 1vmin;
+    list-style: none;
+    box-shadow: 0 -0.3vmin .7vmin #000;
+    overflow: hidden;
+    transition: transform 0.1s;
+
+    z-index: 100;
+}
+
+.settings-menu li{
+    font-size: 2.3vmin;
+    cursor: pointer;
+    padding: 1.5vmin;
+    transition: transform 0.05s;
+}
+
+.settings-menu li:hover{
+    transform: scale(1.01);
+}
+
+.settings-menu li:active{
+    transform: scale(1);
+    background: #000;
+}
+
+.sm-hidden{
+    transform: translateY(-100%);
+}
+
+
+.go-block_visible{
+    z-index: 100;
+    background:rgba(0, 0, 0, 0.75);
+}
+
+.go-text_visible{
+    display: block;
+    transform: scale(1);
+}
+
+
+.message-container{
+    position: absolute;
+    background: var(--main-dark-color);
+    top: 25vmin;
+    min-width: 30vmin;
+    min-height: 7vmin;
+    padding: 1vmin 5vmin;
+    border-radius: 1vmin;
+    font-size: 3vmin;
+    z-index: 150;
+    box-shadow: 0 .5vmin 1.5vmin -.5vmin #000;
+
+    animation: msg-animation 0.1s ease-in;
+    opacity: 1;
+}
+
+.message-container-hidden{
+    top: 20vmin;
+    opacity: 0;
+    transition: 1.5s;
+    animation: none;
+}
 
 /* Animations */
 
@@ -363,6 +455,18 @@ body{
     }
 
     100%{
+        opacity: 1;
+    }
+}
+
+@keyframes msg-animation {
+    0%{
+        transform: translateY(3vmin);
+        opacity: 0;
+    }
+
+    100%{
+        transform: translateY(0);
         opacity: 1;
     }
 }

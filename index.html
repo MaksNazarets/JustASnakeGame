@@ -10,6 +10,9 @@
 
     <body>
         <div id="game">
+            <div class="message-container message-container-hidden">
+                <h2 class="message-text">Dummy text</h2>
+            </div>
             <div class="top">
                 <a id="settings-btn"><img src="icons/settings.svg" alt=""></a>
                 <h1 class="title">JUST A SNAKE GAME :)</h1>
@@ -26,6 +29,7 @@
                     <h1 class="game_over_text">Ви програли</h1>
                     <a class='restart_btn'>ПОЧАТИ ЗАНОВО</a>
                 </div>
+
                 <div class="pause_block">
                     <h1>Пауза</h1>
                     <p>Щоб продовжити гру, знову почніть рух змійки</p>
@@ -55,6 +59,10 @@
                             <p class="rec-number">0</p>
                         </li>
                     </ul>
+                </div>
+                
+                <div class="settings-menu sm-hidden">
+                    <li id="clear-records">Очистити таблицю рекордів</li>
                 </div>
             </div>
             <div class="interface">

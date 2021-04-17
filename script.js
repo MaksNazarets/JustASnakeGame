@@ -22,6 +22,10 @@ const records_btn = document.querySelector('.records-btn');
 const records_container = document.querySelector('.records-container')
 const records_numbers_elements = document.querySelectorAll('.rec-number');
 
+const settings_btn = document.querySelector('#settings-btn');
+const settings_menu = document.querySelector('.settings-menu');
+
+const msg = document.querySelector('.message-container');
 
 var records_array = [0, 0, 0, 0, 0]; // the data is dummy
 
@@ -264,6 +268,9 @@ document.addEventListener('keydown', function(event) {
             pause_block.classList.add("go-block_visible");
         } 
     }
+    records_container.classList.add('rec-container_hidden');
+    settings_menu.classList.add('sm-hidden');
+    rules_container.classList.add('rc-hidden');
 });
 
 document.addEventListener('keyup', function(event) {
@@ -393,11 +400,14 @@ function UpdateRecordList() {
     if(scores_number > records_array[records_array.length-1]){
         records_array[records_array.length-1] = scores_number;
 
+        if(scores_number > records_array[0]) ShowMessage('Новий рекорд!');
+
         records_array.sort(function(a, b) {
             return b - a;
         });
 
         localStorage.setItem('records', JSON.stringify(records_array));
+
     }
 }
 
@@ -410,6 +420,18 @@ function FillInRecordList() {
         records_numbers_elements[i].innerHTML = records_array[i];
     }
 }
+
+function ShowMessage(text) {
+    msg.querySelector('.message-text').innerHTML = text;
+
+    msg.classList.remove('message-container-hidden');
+
+    setTimeout(() => {
+        msg.classList.add('message-container-hidden');  
+    }, 3000);       
+}
+
+
 
 
 rules_btn.addEventListener("click", () => {
@@ -424,6 +446,25 @@ records_btn.addEventListener("click", () => {
     records_container.classList.toggle("rec-container_hidden");
     FillInRecordList();
 })
+
+settings_btn.addEventListener('click', () => {
+    settings_menu.classList.toggle('sm-hidden');
+})
+
+
+
+settings_menu.addEventListener('click', (event) => {
+    switch(event.target.id){
+        case 'clear-records':
+            records_array = [0, 0, 0, 0, 0];
+            localStorage.setItem('records', JSON.stringify(records_array));
+            FillInRecordList();
+            ShowMessage('Очищено');
+            break;
+    }
+})
+
+
 //        ======= GAME SCRIPT =======
 
     newGame();
