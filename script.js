@@ -348,16 +348,6 @@ function gameOver(){
     clearInterval(move);
 
     UpdateRecordList();
-    // var end_animation = setInterval(() => {
-    //     square.style.opacity = "0.1";
-    //     setTimeout(() => {
-    //         square.style.opacity = "1";
-    //    }, 100);
-    // }, 200);    
-    
-    // setTimeout(() => {
-    //     clearInterval(end_animation);
-    // }, 1000);
 
     square.classList.add("q-game_over");
     gameOver_block.classList.add("go-block_visible");
@@ -400,8 +390,8 @@ function newGame(){
 function UpdateRecordList() {
     records_array = JSON.parse(localStorage.getItem('records'));
 
-    if(scores_number > records_array[records_array.length]){
-        records_array[records_array.length - 1] = scores_number;
+    if(scores_number > records_array[records_array.length-1]){
+        records_array[records_array.length-1] = scores_number;
 
         records_array.sort(function(a, b) {
             return b - a;
