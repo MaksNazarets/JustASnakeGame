@@ -1,11 +1,11 @@
-const body = document.getElementsByTagName("body")[0];
-const game = document.getElementById("game");
+const body = document.querySelector("body");
+const game = document.querySelector("#game");
 const field = document.querySelector("#back");
-const square = document.getElementById('q');
+const square = document.querySelector('#q');
 var square_tail = document.querySelectorAll('.q-tail');
 
-const food = document.getElementById("food");
-const scores = document.getElementById("scores_number");
+const food = document.querySelector("#food");
+const scores = document.querySelector("#scores_number");
 
 const gameOver_block = document.querySelector(".game_over_block");
 const gameOver_text = document.querySelector(".game_over_text");
@@ -14,9 +14,16 @@ const pause_block = document.querySelector(".pause_block");
 
 
 
-const rules_btn = document.querySelector(".rules-btn");
+const rules_btn = document.querySelector("#rules-btn");
 const ok_btn = document.querySelector(".ok-btn");
 const rules_container = document.querySelector(".rules-container");
+
+const records_btn = document.querySelector('.records-btn');
+const records_container = document.querySelector('.records-container')
+const records_numbers_elements = document.querySelectorAll('.rec-number');
+
+
+var records_array = [0, 0, 0, 0, 0]; // the data is dummy
 
 // Settings
 var default_speed = 250;
@@ -63,11 +70,8 @@ const FOOD_SIDE = SQUARE_SIDE
     food.style.height = FOOD_SIDE + "px";
 // ----------------
 
-
 const ONE_STEP_SIZE = SQUARE_SIDE;
 
-
-var move;
 var is_over = false;
 
 
@@ -76,14 +80,15 @@ var is_over = false;
 
 //             = MOVING =
 
+var move;
 let prev_posX, prev_posY;
 let actual_posX, actual_posY;
 
 function Move(someFunction){
     pause_block.classList.remove("go-block_visible");
 
-    move = setInterval(() => {
-        someFunction();
+    someFunction();
+    let updateSnake = () => {
         if(is_over) return;
 
         if(square_tail.length > 0){
@@ -106,7 +111,13 @@ function Move(someFunction){
 
         if(is_on_body) gameOver();
 
+    }
 
+    updateSnake();
+
+    move = setInterval(() => {
+        someFunction();
+        updateSnake();
     }, speed);
 }
 
@@ -325,7 +336,7 @@ function plusScore(){
         case 20:
             speed -= 50;
             break;
-        case 30:
+        case 40:
             speed -= 50;
             break;
     }
@@ -336,6 +347,7 @@ function gameOver(){
     is_over = true;
     clearInterval(move);
 
+    UpdateRecordList();
     // var end_animation = setInterval(() => {
     //     square.style.opacity = "0.1";
     //     setTimeout(() => {
@@ -385,6 +397,30 @@ function newGame(){
     spawnFood();
 };
 
+function UpdateRecordList() {
+    records_array = JSON.parse(localStorage.getItem('records'));
+
+    if(scores_number > records_array[records_array.length]){
+        records_array[records_array.length - 1] = scores_number;
+
+        records_array.sort(function(a, b) {
+            return b - a;
+        });
+
+        localStorage.setItem('records', JSON.stringify(records_array));
+    }
+}
+
+function FillInRecordList() {
+    if(localStorage.getItem('records') == null) 
+        localStorage.setItem('records', JSON.stringify(records_array));
+
+    records_array = JSON.parse(localStorage.getItem('records'));
+    for(let i = 0; i < records_array.length; i++){
+        records_numbers_elements[i].innerHTML = records_array[i];
+    }
+}
+
 
 rules_btn.addEventListener("click", () => {
     rules_container.classList.remove("rc-hidden");
@@ -394,10 +430,15 @@ ok_btn.addEventListener("click", () => {
     rules_container.classList.add("rc-hidden");
 })
 
-
+records_btn.addEventListener("click", () => {
+    records_container.classList.toggle("rec-container_hidden");
+    FillInRecordList();
+})
 //        ======= GAME SCRIPT =======
 
     newGame();
+    FillInRecordList()
+
 
    
 
