@@ -58,8 +58,10 @@ const ONE_EXIS_SECTION_NUMBER = 20;
 
 const FIELD_SIDE = Math.floor(field.clientWidth / 10) * 10;
 // ---------------
-    field.style.width = FIELD_SIDE + "px";
-    field.style.height = FIELD_SIDE + "px";
+    field.style.minWidth = FIELD_SIDE + "px";
+    field.style.minHeight = FIELD_SIDE + "px";
+    field.style.maxWidth = FIELD_SIDE + "px";
+    field.style.maxHeight = FIELD_SIDE + "px";
 // ----------------
 
 const SQUARE_SIDE = FIELD_SIDE / ONE_EXIS_SECTION_NUMBER;
@@ -89,7 +91,7 @@ let prev_posX, prev_posY;
 let actual_posX, actual_posY;
 
 function Move(someFunction){
-    pause_block.classList.remove("go-block_visible");
+    unPause();
 
     someFunction();
     let updateSnake = () => {
@@ -257,16 +259,22 @@ function stopMoving(){
     clearInterval(move);
 }
 
+function setPause(){
+    stopMoving();   
+    pause_block.classList.add("go-block_visible");
+}
+
+function unPause(){
+    pause_block.classList.remove("go-block_visible");
+}
+
 document.addEventListener('keydown', function(event) {
     if(!is_over){
         if (event.code == 'ArrowUp' ) moveUp();
         else if (event.code == 'ArrowDown' ) moveDown();
         else if (event.code == 'ArrowRight' ) moveRight();
         else if (event.code == 'ArrowLeft' ) moveLeft();
-        else if (event.code == 'Space') {
-            stopMoving();   
-            pause_block.classList.add("go-block_visible");
-        } 
+        else if (event.code == 'Space') setPause();
     }
     records_container.classList.add('rec-container_hidden');
     settings_menu.classList.add('sm-hidden');
@@ -282,22 +290,24 @@ document.addEventListener('keyup', function(event) {
 //             = GAME PROCESS =
 
 function spawnFood(){
-    foodX = FOOD_SIDE * getRandomInt(1, 19);
-    foodY = FOOD_SIDE * getRandomInt(1, 19);
+    foodX = SQUARE_SIDE * getRandomInt(1, 19);
+    foodY = SQUARE_SIDE * getRandomInt(1, 19);
 
     let is_on_snake = false; 
     square_tail.forEach(element => {
-        if(getComputedStyle(element).left == foodX &&
-        getComputedStyle(element).top == foodY) is_on_snake = true
+        if(getComputedStyle(element).left == foodX + 'px' &&
+        getComputedStyle(element).top == foodY + 'px') is_on_snake = true;
+        return
     });
 
     while(is_on_snake){
-        foodX = getRandomInt(1, 19);
-        foodY = getRandomInt(1, 19);
+        foodX = SQUARE_SIDE * getRandomInt(1, 19);
+        foodY = SQUARE_SIDE * getRandomInt(1, 19);
         is_on_snake = false;
         square_tail.forEach(element => {
-            if(getComputedStyle(element).left == foodX &&
-            getComputedStyle(element).top == foodY) is_on_snake = true
+            if(getComputedStyle(element).left == foodX + 'px'&&
+            getComputedStyle(element).top == foodY + 'px') is_on_snake = true;
+            return;
         });
     }
 
@@ -320,7 +330,7 @@ function plusScore(){
     square_tail = document.querySelectorAll('.q-tail'); // getting actual tail-block array    
 
     scores_number++;
-    scores.innerHTML = scores_number;
+    scores.textContent = scores_number;
 
     var tail_segment = document.createElement("div");
     tail_segment.classList.add("q-tail");
@@ -329,7 +339,7 @@ function plusScore(){
     tail_segment.style.height = SQUARE_SIDE + 'px';
 
     field.appendChild(tail_segment);
-    square_tail = field.querySelectorAll('.q-tail');
+    square_tail = document.querySelectorAll('.q-tail');
 
     spawnFood();
 
@@ -341,11 +351,14 @@ function plusScore(){
             speed -= 50;
             break;
         case 20:
-            speed -= 50;
+            speed -= 40;
             break;
         case 40:
-            speed -= 50;
+            speed -= 30;
             break;
+        case 50:
+            speed -= 15;
+            break;    
     }
 
 }
@@ -368,7 +381,7 @@ function newGame(){
     is_over = false;
     stopMoving();
 
-    square_tail = field.querySelectorAll('.q-tail');
+    square_tail = document.querySelectorAll('.q-tail');
     if(square_tail.length > 0){
         square_tail.forEach(element => {
             element.parentNode.removeChild(element);
@@ -382,7 +395,7 @@ function newGame(){
     restart_button.classList.remove("go-text_visible");
 
     scores_number = 0;
-    scores.innerHTML = scores_number;
+    scores.textContent = scores_number;
 
     posx = Math.floor(ONE_EXIS_SECTION_NUMBER / 2 * SQUARE_SIDE);
     posy = posx;
@@ -463,6 +476,38 @@ settings_menu.addEventListener('click', (event) => {
             break;
     }
 })
+
+
+// =========== Mobile controls ==========
+
+var mobile_controls = document.querySelector('.mobile-controls');
+mobile_controls.addEventListener('click', (event) => {
+    if(!is_over){
+        switch(event.target.id){
+            case 'arr-left':
+                moveLeft();
+                break;
+            case 'arr-right':
+                moveRight();
+                break;
+            case 'arr-up':
+                moveUp();
+                break;
+            case 'arr-down':
+                moveDown();
+                break;
+            case 'pause-btn':
+                setPause();
+                break;
+        }
+    }
+
+    records_container.classList.add('rec-container_hidden');
+    settings_menu.classList.add('sm-hidden');
+    rules_container.classList.add('rc-hidden');
+})
+
+
 
 
 //        ======= GAME SCRIPT =======

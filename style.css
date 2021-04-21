@@ -174,7 +174,9 @@ body{
 
 
 #rules-btn, #settings-btn{
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     right: 0;
     color: rgb(223, 223, 223);
@@ -204,7 +206,6 @@ body{
     display: block;
     position: absolute;
     right: 0;
-    justify-self: end;
     color: rgb(223, 223, 223);
     text-decoration: none;
     text-transform: uppercase;
@@ -445,6 +446,11 @@ body{
     opacity: 0;
     transition: 1.5s;
     animation: none;
+}
+
+
+.controls-container{
+    display: none;
 }
 
 /* Animations */

@@ -1,0 +1,166 @@
+@media (max-width: 1024px) and (hover: none) and (orientation: portrait) {
+    #game{
+        justify-content: start;
+    }
+
+    #rules-btn{
+        display: none;
+    }
+
+    .rules-container{
+        display: none;
+    }
+
+    .top{
+        justify-content: flex-start;
+        padding: 3vmin 1vmin 0 1vmin;
+    }
+
+    #settings-btn{
+        left: auto;
+        right: 0;
+        height: 6vmin;
+        width: 6vmin;
+        border-radius: 1.3vmin;
+    }
+
+    #settings-btn img{
+        height: 100%;
+        width: 100%;
+    }
+
+    .settings-menu{
+        left: auto;
+        right: 0;
+        border-radius: 1vmin 0 1vmin 1vmin;
+    }
+
+    .settings-menu li{
+        font-size: 5.3vmin;
+    }
+
+    .scores{
+        font-size: 7vmin;
+    }
+
+    .records-btn{
+        font-size: 3.5vmin;
+    }
+
+    .records-container{
+        height: 95%;
+        width: 85%;
+        padding: 5vmin 10vmin;
+    }
+
+    .records-container h2{
+        font-size: 6vmin;
+    }
+    
+    .records-container ul{
+        margin-top: 2vmin;
+    }
+    
+    .records-container ul li{
+        font-size: 5vmin;
+    }
+
+
+    /* Controls */
+
+    .controls-container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .mobile-controls{
+        display: flex;  
+        align-items: center;
+        justify-content: center;
+        gap: 1vmin
+    }
+
+    .mobile-controls div{
+        display: flex;
+        flex-direction: column;
+        gap: 1vmin;
+    }
+
+    .arrow{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background:var(--main-light-color);
+        font-size: 7vmin;
+        width: 12vmin;
+        height: 12vmin;
+        border-radius: 1vmin;
+    }
+
+    .arrow:active{
+        background: var(--main-darl-color);
+        box-shadow: inset 0 0 3vmin var(--main-light-color);
+    }
+
+}
+
+
+
+@media (max-width: 500px) and (hover: none) and (orientation: portrait){    
+    /* .top{
+        padding: 3vmin 0 0 0;
+    } */
+
+    .scores{
+        font-size: 9vmin;
+    }
+
+    #settings-btn{
+        right: 0.5vmin;
+    }
+
+    .records-btn{
+        font-size: 5vmin;
+    }
+
+    .records-container h2{
+        font-size: 6vmin;
+    }
+    
+    .records-container ul{
+        margin-top: 3vmin;
+    }
+    
+    .records-container ul li{
+        font-size: 6vmin;
+    }
+
+    /* Mobile controls */
+
+    .arrow{
+        font-size: 9vmin;
+        width: 17vmin;
+        height: 17vmin;
+    }
+}
+
+
+
+
+
+@media (orientation: portrait) {
+    #back{
+        max-width: 55vh;
+        width: 100vw;
+    }
+
+    .title{
+        font-size: 6.5vmin;
+    }
+
+
+}
