@@ -53,29 +53,34 @@ body{
     overflow: hidden;
 }
 
-#q, .q-tail {
+/* #q, .q-tail {
     position: absolute;
-    width: 5%;          /* Changing in js */
-    height: 5%;         /* Changing in js */
+    width: 5%;          
+    height: 5%;         
     background: var(--snake-color);
     box-shadow: 0 0 5px -3px  rgb(7, 7, 7) ;
-    /* transition: opacity 0.1s, top 50ms, left 50ms; */
     z-index: 5;
-}
+}  */
 
-#food{
+/* #food{
     position: absolute;
-    width: 5%;          /* Changing in js */
-    height: 5%;         /* Changing in js */
+    width: 5%;          
+    height: 5%;         
     background: var(--food-color);
     box-shadow: 0 0 5px -3px  rgb(7, 7, 7);
-}
+} */
 
 .q-game_over{
     animation: q-go-animation 0.23s 5;
 }
 
-
+#canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 
 /*                   INTERFACE                    */
@@ -454,7 +459,7 @@ body{
 }
 
 /* Animations */
-
+/* 
 @keyframes q-go-animation {
     0%{
         opacity: 0;
@@ -463,7 +468,7 @@ body{
     100%{
         opacity: 1;
     }
-}
+} */
 
 @keyframes msg-animation {
     0%{
